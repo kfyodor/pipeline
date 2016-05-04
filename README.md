@@ -1,4 +1,5 @@
 # Pipeline: a monadic workflow for Clojure apps.
+[![Circle CI](https://circleci.com/gh/konukhov/redux-cljs/tree/master.svg?style=shield)](https://circleci.com/gh/konukhov/redux-cljs/tree/master)
 
 Facilities for data transformation and validation in real-world Clojure applications.
 
