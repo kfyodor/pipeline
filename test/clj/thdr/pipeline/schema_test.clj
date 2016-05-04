@@ -1,32 +1,13 @@
 (ns thdr.pipeline.schema-test
   (:require [clojure.test :refer :all]
             [thdr.pipeline.schema :refer :all]
+            [thdr.pipeline.test-data :refer :all]
             [schema.core :as s]
             [cats.monad.either :as e]
             [cats.core :as m])
   (:import [schema.utils ErrorContainer]))
 
 ;; TODO: coercer option test
-
-(s/defschema IdSchema
-  {:id java.util.UUID})
-
-(s/defschema TestUser
-  (merge IdSchema
-         {:password s/Str
-          :age s/Int}))
-
-(def correct-attrs
-  {:id (java.util.UUID/randomUUID)
-   :password "123456"
-   :age 22})
-
-(def correct-attrs-str
-  (-> correct-attrs
-      (update-in [:id] str)))
-
-(def wrong-attrs
-  {:id 123})
 
 (deftest schema-check-test
   (testing "correct params"

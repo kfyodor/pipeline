@@ -1,4 +1,5 @@
 (ns thdr.pipeline.schema
+  "Either monad wrappers for Prismatic Schema."
   (:require [cats.builtin]
             [cats.monad.either :as either]
             [schema.core :as schema]

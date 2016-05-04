@@ -6,9 +6,6 @@
             [cats.context :as ctx]
             [cats.protocols :as proto]))
 
-(defn monadic? [a]
-  (satisfies? proto/Contextual a))
-
 (defn exception->either
   "Transforms [cats.monad.exception/Exception] to
    [cats.monad.either/Either]"
@@ -21,8 +18,8 @@
        (left (or msg (.getMessage val)))))))
 
 (defmacro try-either [& forms]
-  "Run code which can throw exception
-  and tranform them to either"
+  "Runs code which can throw an error
+  and tranforms the result to Either"
   `(exception->either
     (exc/try-on ~@forms)))
 
@@ -37,7 +34,7 @@
 
 (defmacro pipeline->
   "Works like [clojure.core/->] threading macro
-   but for functions which return Either monad.
+   but for functions which return an Either monad.
 
    Threads expressions through [cats.core/mlet] macro
    (i.e. chain of monadic binds, or >>=) and returns
