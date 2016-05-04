@@ -1,4 +1,5 @@
 # Pipeline: a monadic workflow for Clojure apps.
+[![Circle CI](https://circleci.com/gh/konukhov/pipeline/tree/master.svg?style=shield)](https://circleci.com/gh/konukhov/pipeline/tree/master)
 
 Facilities for data transformation and validation in real-world Clojure applications.
 
@@ -11,7 +12,7 @@ Add this to you `project.clj` or `build.boot`:
 
 ## What's included?
 
-+ A `pipeline->` (`>>=->`) and `pipeline->>` (`>>=->`) macros which work like Clojure's threading macros but thread an expression through a chain of monadic binds (`>>=`).
++ A `pipeline->` (`>>=->`) and `pipeline->>` (`>>=->>`) macros which work like Clojure's threading macros but thread an expression through a chain of monadic binds (`>>=`).
 + `thdr.pipeline.validations` namespace for working with data validation. Build on top of `Validation` applicative functor which works like `Either` monad, but can aggregate validation errors. Includes helpers for composing validations, validating associative data structures and transforming validations to `Either` monads.
 + `thdr.pipeline.schema` namespace for working with [Schema](https://github.com/plumatic/schema) checks and coercions within monadic context.
 + Various helpers to handle exceptions, eithers etc.
