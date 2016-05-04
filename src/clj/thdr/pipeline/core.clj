@@ -1,8 +1,9 @@
 (ns thdr.pipeline.core
   (:require [cats.builtin]
             [cats.core :as m]
-            [cats.monad.either :refer [left right left? either?] :as either]
-            [cats.monad.exception :as exc]
+            [cats.monad
+             [either :refer [left right left? either?] :as either]
+             [exception :as exc]]
             [cats.context :as ctx]
             [cats.protocols :as proto]))
 
@@ -12,6 +13,7 @@
   ([e]
    (exception->either e nil))
   ([e msg]
+   {:pre (exc/exception? e)}
    (let [val (m/extract e)]
      (if (exc/success? e)
        (right val)
@@ -25,7 +27,7 @@
 
 (defn run-either
   "Similar to [cats.monad.either/branch]
-  but with flipped arguments"
+  but with flipped arguments."
   [e rf lf]
   {:pre [(either? e)]}
   (if (left? e)
@@ -35,6 +37,12 @@
 (defmacro pipeline->
   "Works like [clojure.core/->] threading macro
    but for functions which return an Either monad.
+
+   Expects first form to return an instance of Either.
+   Use other monadic values carefully (read: don't use)
+   since `funcool/cats` has dynamic context in `mlet`
+   (I think there're working on this)  and this can lead
+   to unexpected results.
 
    Threads expressions through [cats.core/mlet] macro
    (i.e. chain of monadic binds, or >>=) and returns
@@ -61,7 +69,7 @@
 
 (defmacro pipeline->>
   "Same as [pipeline->] but threads through the last
-  arguments (like [clojure.core/->>])"
+  argument (like [clojure.core/->>])"
   [x & forms]
   (let [sym (gensym)
         init [sym x]
