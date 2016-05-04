@@ -1,6 +1,6 @@
 (ns thdr.pipeline.validations
   "Various functions for validating data structures and
-  composing and transforming validation functionas based on
+  composing + transforming validation functions. Based on
   Validation applicative functors."
   (:require [cats.builtin]
             [cats.core :as m]

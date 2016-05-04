@@ -1,4 +1,5 @@
 (ns thdr.pipeline.core
+  "Pipeline's core namespace. Provides pipeline-> and pipeline->> macros."
   (:require [cats.builtin]
             [cats.core :as m]
             [cats.monad

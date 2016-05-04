@@ -1,13 +1,13 @@
 (ns example
   "An example on how you could use `pipeline` lib in you app.
-  This is not intended to be compiled and run."
+  This is not intended to be compiled or run."
   (:require [cats.core :refer [return]]
             [cats.applicative.validation :refer [fail ok]]
             [schema.core :refer [defschema]]
             [example.db :as db]
             [example.serialization :as serialization]
             [io.pedestal.http :refer [response status]]
-            [thdr.pipeline.core :refer [try-either pipeline->]]
+            [thdr.pipeline.core :refer [try-either pipeline-> run-either]]
             [thdr.pipeline.validations :refer [run-validations >==> validate-in]]
             [thdr.pipeline.schema :refer [schema-coerce]]))
 
