@@ -1,5 +1,5 @@
 # Pipeline: a monadic workflow for Clojure apps.
-[![Circle CI](https://circleci.com/gh/konukhov/pipeline/tree/master.svg?style=shield)](https://circleci.com/gh/konukhov/pipeline/tree/master)
+[![Circle CI](https://circleci.com/gh/konukhov/pipeline/tree/master.svg?style=shield)](https://circleci.com/gh/konukhov/pipeline/tree/master) [![Clojars Project](https://img.shields.io/clojars/v/io.thdr/pipeline.svg)](https://clojars.org/io.thdr/pipeline)
 
 Facilities for data transformation and validation in real-world Clojure applications.
 
@@ -7,7 +7,7 @@ Facilities for data transformation and validation in real-world Clojure applicat
 
 Add this to you `project.clj` or `build.boot`:
 ```clojure
-[thdr.pipeline "0.1.0"]
+[io.thdr/pipeline "0.1.0"]
 ```
 
 ## What's included?
