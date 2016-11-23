@@ -9,27 +9,27 @@
 (deftest test-exception->either
   (let [res (exception->either (exc/try-on (errored-fn)))]
     (is (e/left? res))
-    (is (= (m/extract res) "there was an error")))
+    (is (= "there was an error" (m/extract res))))
 
   (let [res (exception->either (exc/try-on :ok))]
     (is (e/right? res))
-    (is (= (m/extract res) :ok))))
+    (is (= :ok (m/extract res)))))
 
 (deftest test-try-either
   (let [res (try-either (errored-fn))]
     (is (e/left? res))
-    (is (= (m/extract res) "there was an error")))
+    (is (= "there was an error" (m/extract res))))
 
   (let [res (try-either :ok)]
     (is (e/right? res))
-    (is (= (m/extract res) :ok))))
+    (is (= :ok (m/extract res)))))
 
 (deftest test-run-either
   (let [res (run-either (e/right :ok) (fn [v] v) (fn [e] :nope))]
-    (is (= res :ok)))
+    (is (= :ok res)))
 
   (let [res (run-either (e/left :err) (fn [v] :nope) (fn [e] e))]
-    (is (= res :err))))
+    (is (= :err res))))
 
 
 (defn minus [a b]
@@ -37,16 +37,16 @@
 
 (deftest test-pipeline->
   (let [res (pipeline-> (e/right 2) (minus 1))]
-    (is (= res (>>=-> (e/right 2) (minus 1))))
-    (is (= res (e/right 1))))
+    (is (= (>>=-> (e/right 2) (minus 1)) res))
+    (is (= (e/right 1) res)))
 
   (let [res (pipeline-> (e/left "err") (minus 1))]
-    (is (= res (e/left "err")))))
+    (is (= (e/left "err") res))))
 
 (deftest test-pipeline->>
   (let [res (pipeline->> (e/right 2) (minus 1))]
-    (is (= res (>>=->> (e/right 2) (minus 1))))
-    (is (= res (e/right -1))))
+    (is (= (>>=->> (e/right 2) (minus 1)) res))
+    (is (= (e/right -1) res)))
 
   (let [res (pipeline->> (e/left "err") (minus 1))]
-    (is (= res (e/left "err")))))
+    (is (= (e/left "err") res))))
