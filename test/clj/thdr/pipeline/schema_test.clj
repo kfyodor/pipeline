@@ -41,7 +41,7 @@
     (testing "correct attrs"
       (let [res (schema-coerce correct-attrs IdSchema :select-keys? true)]
         (is (e/right? res))
-        (is (= correct-attrs (m/extract res)))))
+        (is (= {:id uuid} (m/extract res)))))
 
     (testing "wrong attrs"
       (let [res (schema-coerce wrong-attrs IdSchema :select_keys? true)]

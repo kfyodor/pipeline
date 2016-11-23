@@ -40,6 +40,4 @@
      (if-let [err (and (utils/error? res)
                        (utils/error-val res))]
        (either/left (t-fn err))
-       (either/right (if select-keys?
-                       (merge data res)
-                       res))))))
+       (either/right res)))))
