@@ -47,19 +47,19 @@
 (deftest test-exception->validation
   (let [res (exception->validation (errored-fn))]
     (is (v/fail? res))
-    (is (= (m/extract res) ["there was an error"])))
+    (is (= ["there was an error"] (m/extract res))))
 
   (let [res (exception->validation (errored-fn) :custom-msg)]
     (is (v/fail? res))
-    (is (= (m/extract res) [:custom-msg])))
+    (is (= [:custom-msg] (m/extract res))))
 
   (let [res (exception->validation (exc/try-on :ok))]
     (is (v/ok? res))
-    (is (= (m/extract res) :ok)))
+    (is (= :ok (m/extract res))))
 
   (let [res (exception->validation (exc/try-on :ok) :nevermind)]
     (is (v/ok? res))
-    (is (= (m/extract res) :ok)))
+    (is (= :ok (m/extract res))))
 
   (is (thrown? java.lang.AssertionError (exception->validation :ok))))
 
@@ -67,30 +67,32 @@
   (let [validation (validate-in [:age] valid-age?)]
     (let [res (validation valid-user)]
       (is (v/ok? res))
-      (is (= (m/extract res) valid-user)))
+      (is (= valid-user (m/extract res))))
 
     (let [res (validation invalid-user)]
       (is (v/fail? res))
-      (is (= (m/extract res) [:invalid-age])))))
+      (is (= [:invalid-age] (m/extract res))))))
 
 (deftest test-compose-validations
   (let [res (user-validations valid-user)]
     (is (v/ok? res))
-    (is (m/extract res) valid-user))
+    (is (= valid-user (m/extract res))))
 
   (let [res (user-validations invalid-user)]
     (is (v/fail? res))
-    (is (= (-> res m/extract set) #{:invalid-age
-                                    :password-too-short
-                                    :confirmation-doesnt-match}))))
+    (is (= #{:invalid-age
+             :password-too-short
+             :confirmation-doesnt-match}
+           (-> res m/extract set)))))
 
 (deftest test-run-validations
   (let [res (run-validations valid-user user-validations)]
     (is (e/right? res))
-    (is (= (m/extract res) valid-user)))
+    (is (= valid-user (m/extract res))))
 
   (let [res (run-validations invalid-user user-validations)]
     (is (e/left? res))
-    (is (= (-> res m/extract set) #{:invalid-age
-                                    :password-too-short
-                                    :confirmation-doesnt-match}))))
+    (is (= #{:invalid-age
+             :password-too-short
+             :confirmation-doesnt-match}
+           (-> res m/extract set)))))
