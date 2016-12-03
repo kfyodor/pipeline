@@ -10,7 +10,7 @@
          '[adzerk.bootlaces :refer :all]
          '[codox.boot :refer [codox]])
 
-(def +version+ "0.1.0")
+(def +version+ "0.1.1-SNAPSHOT")
 (bootlaces! +version+ :dont-modify-paths? true)
 
 (task-options!
